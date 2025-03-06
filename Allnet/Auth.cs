@@ -14,9 +14,10 @@ namespace AMDaemon.Allnet
 
 		public static bool IsGood => true; // Api.allnet_Auth_isGood();
 
-		public static DateTime AuthTime => InnerUtil.MakeDateTime(0, DateTimeKind.Local);
+		public static DateTime AuthTime => DateTime.Now;
 
-		public static string AuthData => "";
+
+        public static string AuthData => "";
 
 		//public static bool IsDevelop => Api.allnet_Auth_isDevelop();
 
