@@ -1,0 +1,40 @@
+namespace AMDaemon
+{
+	public enum AimeErrorId
+	{
+		None,
+		ReaderSetupFail,
+		ReaderFirmFileInvalid,
+		ReaderFirmUpToDate,
+		ReaderAccessFail,
+		ReaderTimeout,
+		ReaderIncompatible,
+		ReaderTwoOrMore,
+		DBResolveFail,
+		DBAccessTimeout,
+		DBAccessFail,
+		FeliCaInvalid,
+		FeliCaNotFound,
+		FeliCaRegisterFail,
+		AimeIdInvalid,
+		AimeIdNotFound,
+		AimeIdRegisterFail,
+		FeliCaRequired,
+		CardRequired,
+		NoBoardInfo,
+		LogRegisterFail,
+		FeliCaRegistered,
+		AimeIdRegistered,
+		LockBanSystemUser,
+		LockBanSystem,
+		LockBanUser,
+		LockBan,
+		LockSystemUser,
+		LockSystem,
+		LockUser,
+		ReaderFirmUpdateFail,
+		CampaignInfoFail,
+		ReaderDetectFail,
+		FeliCaComFail
+	}
+}
