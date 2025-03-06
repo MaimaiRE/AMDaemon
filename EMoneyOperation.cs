@@ -1,6 +1,6 @@
 using System;
 using System.Threading;
-
+using MaimaiRE;
 namespace AMDaemon
 {
 	public sealed class EMoneyOperation

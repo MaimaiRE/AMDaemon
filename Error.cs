@@ -1,5 +1,5 @@
 using System;
-
+using MaimaiRE;
 namespace AMDaemon
 {
 	public static class Error

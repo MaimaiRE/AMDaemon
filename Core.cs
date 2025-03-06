@@ -1,6 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
-using Utils;
+using MaimaiRE;
 namespace AMDaemon
 {
 	public static class Core

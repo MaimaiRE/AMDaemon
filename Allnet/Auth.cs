@@ -1,3 +1,4 @@
+using AMDaemon.AquaDX;
 using System;
 using System.Runtime.InteropServices;
 
@@ -21,13 +22,13 @@ namespace AMDaemon.Allnet
 
 		//public static LineType LineType => Api.allnet_Auth_getLineType();
 
-		public static string GameServerUri => "aquadx.hydev.org/gs/dummytoken/mai2/"; // Marshal.PtrToStringUni(Api.allnet_Auth_getGameServerUri());
+		public static string GameServerUri { get { return Session.Instance.GetServerEndpoint(); } } // Marshal.PtrToStringUni(Api.allnet_Auth_getGameServerUri());
 
-		public static string GameServerHost => "TODO"; // Marshal.PtrToStringUni(Api.allnet_Auth_getGameServerHost());
+		public static string GameServerHost => ""; // Marshal.PtrToStringUni(Api.allnet_Auth_getGameServerHost());
 
 		public static uint LocationId => 0; // Api.allnet_Auth_getLocationId();
 
-		public static string LocationName => "TODO";//;Marshal.PtrToStringUni(Api.allnet_Auth_getLocationName());
+		public static string LocationName => "";//;Marshal.PtrToStringUni(Api.allnet_Auth_getLocationName());
 
 		public static LazyCollection<string> LocationNicknames { get; private set; }
 
@@ -35,7 +36,7 @@ namespace AMDaemon.Allnet
 
 		public static LazyCollection<string> RegionNames { get; private set; }
 
-		public static string CountryCode => "TODO";
+		public static string CountryCode => "JP";
 
 		static Auth()
 		{

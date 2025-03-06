@@ -1,6 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
-
+using MaimaiRE;
 namespace AMDaemon
 {
 	public sealed class NetworkTestInfo

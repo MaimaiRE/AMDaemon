@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using System;
+using AMDaemon.Allnet;
 namespace AMDaemon
 {
 	public static class System
@@ -23,7 +24,7 @@ namespace AMDaemon
 		static System()
 		{
 			BoardId = new SerialId("MaimaiRE"); // new SerialId(Api.System_getBoardId());
-			KeychipId = new SerialId(Utils.Config.KeychipID);
+			KeychipId = new SerialId(AquaDX.Session.Instance.KeychipID);
 			Resolutions = new LazyCollection<Resolution>(() => 2, (int index) => new Resolution(IntPtr.Zero));
 		}
 	}
