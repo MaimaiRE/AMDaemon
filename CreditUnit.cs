@@ -40,7 +40,7 @@ namespace AMDaemon
 		public bool IsGameCostEnough(int gameCostIndex, int count)
 		{
 			// return Api.Call(() => Api.CreditUnit_isGameCostEnough(Pointer, gameCostIndex, count));
-			Logger.Trace($"{gameCostIndex}, {count}");
+			// Logger.Trace($"{gameCostIndex}, {count}");
             return true;
         }
 
