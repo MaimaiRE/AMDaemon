@@ -6,7 +6,7 @@ namespace AMDaemon
 	{
 		//public static readonly int MaxCoinChuteCount = Api.CreditConfig_MaxCoinChuteCount_get();
 
-		//public static readonly int MaxGameCostCount = Api.CreditConfig_MaxGameCostCount_get();
+		public static readonly int MaxGameCostCount = 3;
 
 		//private IntPtr Pointer { get; set; }
 

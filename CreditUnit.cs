@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using MaimaiRE;
+
 namespace AMDaemon
 {
 	public sealed class CreditUnit
@@ -24,7 +25,11 @@ namespace AMDaemon
 		internal CreditUnit(IntPtr pointer)
 		{
 			Pointer = pointer;
-			//GameCosts = new LazyCollection<uint>(() => CreditConfig.MaxGameCostCount, (int index) => Api.Call(pointer, index, Api.CreditUnit_getGameCost), false);
+			GameCosts = new LazyCollection<uint>(
+				() => CreditConfig.MaxGameCostCount,
+				(int index) => 1, // Stubbed value instead of: Api.Call(pointer, index, Api.CreditUnit_getGameCost)
+				false
+			);
 		}
 
 		//public override string ToString()
@@ -41,8 +46,8 @@ namespace AMDaemon
 		{
 			// return Api.Call(() => Api.CreditUnit_isGameCostEnough(Pointer, gameCostIndex, count));
 			// Logger.Trace($"{gameCostIndex}, {count}");
-            return true;
-        }
+			return true;
+		}
 
 		public bool PayGameCost(int gameCostIndex)
 		{
@@ -53,7 +58,7 @@ namespace AMDaemon
 		{
 			// return Api.Call(() => Api.CreditUnit_payGameCost(Pointer, gameCostIndex, count));
 			Logger.Trace($"{gameCostIndex}, {count}");
-            return true;
-        }
+			return true;
+		}
 	}
 }
