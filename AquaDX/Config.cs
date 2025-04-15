@@ -6,10 +6,11 @@ namespace AMDaemon
     {
         public class Config : Singleton<Config>
         {
-            public string Server { get; set; }
-            public string KeychipID { get; set; }       
+            public string AquaDX_Host = "aquadx.hydev.org";
+            public int AquaDX_AimeDBPort = 22345;
 
-            public uint AimeID { get; set; }
+            public string KeychipID; // Encoded. AXXXXXXXXXX (11 (1+10) digits long)
+            public string AimeID20; // 20 digits long (10 bytes hex string)
         }
     }
 }

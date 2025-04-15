@@ -23,7 +23,7 @@ namespace AMDaemon.Allnet
 
 		//public static LineType LineType => Api.allnet_Auth_getLineType();
 
-		public static string GameServerUri { get { return Session.Instance.GetServerEndpoint(); } } // Marshal.PtrToStringUni(Api.allnet_Auth_getGameServerUri());
+		public static string GameServerUri { get { return Session.Instance.ServerEndpoint; } } // Marshal.PtrToStringUni(Api.allnet_Auth_getGameServerUri());
 
 		public static string GameServerHost => ""; // Marshal.PtrToStringUni(Api.allnet_Auth_getGameServerHost());
 
