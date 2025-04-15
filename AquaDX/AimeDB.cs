@@ -19,7 +19,7 @@ namespace AMDaemon
         public static class AimeDbClient
         {
             private static readonly byte[] Key = Encoding.ASCII.GetBytes("Copyright(C)SEGA");
-
+            // https://github.com/MewoLab/AquaDX/blob/v1-dev/src/main/java/icu/samnyan/aqua/sega/aimedb/AimeDB.kt#L52
             public const ushort CmdFelicaLookup = 0x01;
             public const ushort CmdLookup = 0x04;
             public const ushort CmdRegister = 0x05;
@@ -193,12 +193,12 @@ namespace AMDaemon
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogError($"Error preparing parameters for AimeDB lookup: {ex.Message}");
+                    Logger.Error($"Error preparing parameters for AimeDB lookup: {ex.Message}");
                     onComplete?.Invoke(null);
                     yield break;
                 }
 
-                Debug.Log($"Starting AimeDB Lookup Coroutine for LUID: {luidHex}");
+                Logger.Log($"Starting AimeDB Lookup Coroutine for LUID: {luidHex}");
 
 
                 Task<(ushort responseType, byte[] responsePayload, Exception error)> request
@@ -213,12 +213,12 @@ namespace AMDaemon
                 // Process the result from the generalized sender
                 if (request.IsFaulted) // Should ideally not happen if exceptions are caught inside
                 {
-                    Debug.LogError($"AimeDB command task faulted: {request.Exception}");
+                    Logger.Error($"AimeDB command task faulted: {request.Exception}");
                     onComplete?.Invoke(null);
                 }
                 else if (request.Result.error != null)
                 {
-                    Debug.LogError($"AimeDB command failed: {request.Result.error}");
+                    Logger.Error($"AimeDB command failed: {request.Result.error}");
                     onComplete?.Invoke(null);
                 }
                 else
@@ -227,14 +227,14 @@ namespace AMDaemon
                     ushort responseType = request.Result.responseType;
                     byte[] responsePayload = request.Result.responsePayload;
 
-                    if (responseType != CmdLookup)
+                    if (responseType != 0x06)
                     {
-                        Debug.LogError($"AimeDB lookup received unexpected response type: {responseType}");
+                        Logger.Error($"AimeDB lookup received unexpected response type: {responseType}");
                         onComplete?.Invoke(null);
                     }
                     else if (responsePayload == null || responsePayload.Length < 4)
                     {
-                        Debug.LogError(
+                        Logger.Error(
                             $"AimeDB lookup received invalid payload length: {(responsePayload == null ? "null" : responsePayload.Length.ToString())}");
                         onComplete?.Invoke(null);
                     }
@@ -245,13 +245,13 @@ namespace AMDaemon
 
                         if (aimeIdResult == 0xFFFFFFFF)
                         {
-                            Debug.LogWarning(
+                            Logger.Warn(
                                 "AimeDB lookup returned Guest ID (0xFFFFFFFF). Card might not be registered.");
                             onComplete?.Invoke(null); // Treat Guest ID as failure for this callback
                         }
                         else
                         {
-                            Debug.Log($"AimeDB lookup successful. AimeID: {aimeIdResult}");
+                            Logger.Log($"AimeDB lookup successful. AimeID: {aimeIdResult}");
                             onComplete?.Invoke(aimeIdResult);
                         }
                     }
@@ -263,9 +263,16 @@ namespace AMDaemon
         {
             public uint? AimeID = null;
 
+            public bool Valid()
+            {
+                return (AimeID != null);
+            }
             public IEnumerator Init(Action onComplete)
             {
-                yield return AimeDbClient.DoLookup(Config.Instance.KeychipID, Config.Instance.AimeID20, new Action<uint?>(u => AimeID = u));
+                // XXX: Help. Please tell me this is NOT how you are supposed to write this.               
+                var coro = AimeDbClient.DoLookup(
+                    Config.Instance.KeychipID, Config.Instance.AimeID20, new Action<uint?>(u => AimeID = u));
+                while (coro.MoveNext()) yield return null;
                 onComplete?.Invoke();
             }
         }
