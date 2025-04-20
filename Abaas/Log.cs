@@ -1,5 +1,6 @@
-using CardMakerRE;
+
 using System.Runtime.InteropServices;
+using Logger = AMDaemon.Debug.Logger;
 
 namespace AMDaemon.Abaas
 {

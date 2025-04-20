@@ -6,13 +6,13 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using CardMakerRE;
-using Ionic.Zlib;
-using UnityEngine;
 
-namespace AMDaemon.AquaDX
+using Ionic.Zlib;
+using Logger = AMDaemon.Debug.Logger;
+
+namespace AMDaemon.Client
 {
-    public class Session : Singleton<Session>
+    public class Session : Internal.Singleton<Session>
     {
         private static string BuildCompressedBase64(Dictionary<string, string> data)
         {
@@ -26,8 +26,8 @@ namespace AMDaemon.AquaDX
             }
             return Convert.ToBase64String(ms.ToArray());
         }
-        public string KeychipID => CardMakerConfig.Instance.EncodedKeychipID;
-        public bool   IsValid   => !string.IsNullOrEmpty(KeychipID);
+        public string KeychipID => Config.Instance.EncodedKeychipID;
+        public bool IsValid => Config.Instance.IsValid;
 
         private string _serverEndpoint = string.Empty;
         public  string ServerEndpoint  => _serverEndpoint;
@@ -35,28 +35,18 @@ namespace AMDaemon.AquaDX
         {
             if (!IsValid)
             {
-                Debug.LogError("[AquaDX] KeychipID missing – aborting PowerOn.");
+                Logger.Error("Config is not valid. Check and reconfigure.");
+                Logger.Error($"Reason: {Config.Instance.InvalidReason()}");
                 onComplete?.Invoke(null);
                 yield break;
             }
 
-            string host = Config.Instance.AquaDX_Host;
+            string host = Config.Instance.Host;
             string urlPath = "/sys/servlet/PowerOn";
-            Debug.Log($"[AquaDX] PowerOn(raw) → http://{host}{urlPath}");
+            Logger.Log($"PowerOn(raw) → http://{host}{urlPath}");
 
-            Dictionary<string, string> fields = new()
-            {
-                { "serial",     KeychipID         },
-                { "game_id",    "SDED"            },
-                { "ver",        "1.35"            },
-                { "ip",         "45.76.58.145"    },
-                { "firm_ver",   "50000"           },
-                { "boot_ver",   "0000"            },
-                { "encode",     "UTF-8"           },
-                { "format_ver", "3"               },
-                { "hops",       "1"               },
-                { "token",      "1956721072"      }
-            };
+            Dictionary<string, string> fields = Config.Instance.AimeFields;
+            fields["serial"] = KeychipID;
 
             string body = BuildCompressedBase64(fields);
             Task<string?> t = SendRawPowerOnAsync(host, 80, urlPath, body);
@@ -66,11 +56,11 @@ namespace AMDaemon.AquaDX
             if (t.Result != null)
             {
                 _serverEndpoint = t.Result;
-                Debug.Log($"[AquaDX] ✅ ServerEndpoint = {_serverEndpoint}");
+                Logger.Log($"✅ ServerEndpoint = {_serverEndpoint}");
             }
             else
             {
-                Debug.LogError("[AquaDX] Failed to obtain server URI.");
+                Logger.Error("Failed to obtain server URI.");
             }
 
             onComplete?.Invoke(_serverEndpoint.Length > 0 ? _serverEndpoint : null);
@@ -99,7 +89,7 @@ namespace AMDaemon.AquaDX
             }
             catch (Exception ex)
             {
-                Debug.LogError($"[AquaDX] TCP connect failed: {ex.Message}");
+                Logger.Error($"TCP connect failed: {ex.Message}");
                 return null;
             }
             using NetworkStream ns = client.GetStream();
@@ -111,7 +101,7 @@ namespace AMDaemon.AquaDX
             }
             catch (Exception ex)
             {
-                Debug.LogError($"[AquaDX] TCP write failed: {ex.Message}");
+                Logger.Error($"TCP write failed: {ex.Message}");
                 return null;
             }
             using MemoryStream ms = new();
@@ -124,7 +114,7 @@ namespace AMDaemon.AquaDX
             }
             catch (Exception ex)
             {
-                Debug.LogError($"[AquaDX] TCP read failed: {ex.Message}");
+                Logger.Error($"TCP read failed: {ex.Message}");
                 return null;
             }
 
@@ -132,11 +122,11 @@ namespace AMDaemon.AquaDX
             int bodyIdx = response.IndexOf("\r\n\r\n", StringComparison.Ordinal);
             if (bodyIdx < 0)
             {
-                Debug.LogError("[AquaDX] No HTTP separator found.");
+                Logger.Error("No HTTP separator found.");
                 return null;
             }
             string respBody = response.Substring(bodyIdx + 4).Trim();
-            Debug.Log($"[AquaDX] RAW reply body: \"{respBody}\"");
+            Logger.Log($"RAW reply body: \"{respBody}\"");
 
             var kv = respBody.Split('&', StringSplitOptions.RemoveEmptyEntries)
                              .Select(p => p.Split('='))

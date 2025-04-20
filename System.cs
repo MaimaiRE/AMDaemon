@@ -23,7 +23,7 @@ namespace AMDaemon
 		static System()
 		{
 			BoardId = new SerialId("CardMakerRE"); // new SerialId(Api.System_getBoardId());
-			KeychipId = new SerialId(AquaDX.Session.Instance.KeychipID);
+			KeychipId = new SerialId(Client.Session.Instance.KeychipID);
 			Resolutions = new LazyCollection<Resolution>(() => 2, (int index) => new Resolution(IntPtr.Zero));
 		}
 	}

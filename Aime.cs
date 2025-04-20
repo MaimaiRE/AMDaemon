@@ -1,3 +1,4 @@
+using AMDaemon.Debug;
 using System;
 using System.Diagnostics;
 
@@ -60,7 +61,7 @@ namespace AMDaemon
 			//	return false;
 			//}
 			//LastSendLogState = RequestState.ReplaceOrCreate(LastSendLogState, intPtr);
-			Debug.Write($"SendLog: {aimeId}, {status}, {gameCostIndex}, {gameCostCount}");
+			Logger.Trace($"SendLog: {aimeId}, {status}, {gameCostIndex}, {gameCostCount}");
             return true;
 		}
 
@@ -72,7 +73,7 @@ namespace AMDaemon
             //	return false;
             //}
             //LastSendLogState = RequestState.ReplaceOrCreate(LastSendLogState, intPtr);
-            Debug.Write($"SendLogWithCredit: {aimeId}, {status}, {credit}");
+            Logger.Trace($"SendLogWithCredit: {aimeId}, {status}, {credit}");
             return true;
 		}
 

@@ -1,8 +1,8 @@
-using CardMakerRE;
+
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
-
+using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public static class Credit

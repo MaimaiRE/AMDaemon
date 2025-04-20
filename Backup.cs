@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using CardMakerRE;
+using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public static class Backup

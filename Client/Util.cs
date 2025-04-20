@@ -1,13 +1,13 @@
 
 using System;
-using CardMakerRE;
+
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace AMDaemon
 {
-    namespace AquaDX
+    namespace Client
     {
         public static class Utils
         {

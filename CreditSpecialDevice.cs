@@ -1,6 +1,6 @@
-using CardMakerRE;
-using System;
 
+using System;
+using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public sealed class CreditSpecialDevice

@@ -1,6 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
-using CardMakerRE;
+using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public sealed class NetworkTestInfo

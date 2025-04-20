@@ -5,15 +5,15 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using CardMakerRE;
+
 using UnityEngine;
-using AMDaemon.AquaDX;
-using Config = AMDaemon.AquaDX.Config;
-using Logger = CardMakerRE.Logger;
+using AMDaemon.Client;
+using Config = AMDaemon.Client.Config;
+using Logger = AMDaemon.Debug.Logger;
 
 namespace AMDaemon
 {
-    namespace AquaDX
+    namespace Client
     {
 
         public static class AimeDbClient
@@ -140,7 +140,7 @@ namespace AMDaemon
                 {
                     try
                     {
-                        await client.ConnectAsync(Config.Instance.AquaDX_Host, Config.Instance.AquaDX_AimeDBPort);
+                        await client.ConnectAsync(Config.Instance.Host, Config.Instance.AimeDbPort);
 
                         using (var stream = client.GetStream())
                         {
@@ -259,7 +259,7 @@ namespace AMDaemon
             }
         }
 
-        public class AimeDbState : Singleton<AimeDbState>
+        public class AimeDbState : Internal.Singleton<AimeDbState>
         {
             public uint? AimeID = null;
 
@@ -271,7 +271,7 @@ namespace AMDaemon
             {
                 // XXX: Help. Please tell me this is NOT how you are supposed to write this.               
                 var coro = AimeDbClient.DoLookup(
-                    Config.Instance.KeychipID, Config.Instance.AimeID20, new Action<uint?>(u => AimeID = u));
+                    Config.Instance.EncodedKeychipID, Config.Instance.AimeID20, new Action<uint?>(u => AimeID = u));
                 while (coro.MoveNext()) yield return null;
                 onComplete?.Invoke();
             }
