@@ -5,11 +5,11 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using AMDaemon.AquaDX;
-using MaimaiRE;
+using CardMakerRE;
 using UnityEngine;
+using AMDaemon.AquaDX;
 using Config = AMDaemon.AquaDX.Config;
-using Logger = MaimaiRE.Logger;
+using Logger = CardMakerRE.Logger;
 
 namespace AMDaemon
 {

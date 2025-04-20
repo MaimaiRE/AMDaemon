@@ -1,5 +1,5 @@
 using System;
-using MaimaiRE;
+using CardMakerRE;
 namespace AMDaemon.Allnet
 {
 	public sealed class AccountingUnit

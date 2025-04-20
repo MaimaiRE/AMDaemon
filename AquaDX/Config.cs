@@ -1,4 +1,4 @@
-using MaimaiRE;
+using CardMakerRE;
 
 namespace AMDaemon
 {
@@ -6,7 +6,7 @@ namespace AMDaemon
     {
         public class Config : Singleton<Config>
         {
-            public string AquaDX_Host = "aquadx.hydev.org";
+            public string AquaDX_Host = "amime.missless.net";
             public int AquaDX_AimeDBPort = 22345;
 
             public string KeychipID; // Encoded. AXXXXXXXXXX (11 (1+10) digits long)

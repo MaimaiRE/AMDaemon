@@ -1,5 +1,5 @@
 using System;
-using MaimaiRE;
+using CardMakerRE;
 namespace AMDaemon
 {
 	public static class Error

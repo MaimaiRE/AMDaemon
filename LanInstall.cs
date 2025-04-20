@@ -10,6 +10,6 @@ namespace AMDaemon
 
 		public static bool IsExitNeeded => false; // Api.LanInstall_isExitNeeded();
 
-		public static int ServerCount => 0; // Api.LanInstall_getServerCount();
+		public static int ServerCount => 1; // Api.LanInstall_getServerCount();
 	}
 }

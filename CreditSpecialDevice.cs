@@ -1,3 +1,4 @@
+using CardMakerRE;
 using System;
 
 namespace AMDaemon
@@ -15,9 +16,11 @@ namespace AMDaemon
 		//	Pointer = pointer;
 		//}
 
-		//public bool Lockout(bool on)
-		//{
-		//	return Api.Call(Pointer, on, Api.CreditSpecialDevice_lockout);
-		//}
+		public bool Lockout(bool on)
+		{
+			Logger.Trace($"on={on}");
+			return true;
+			// return Api.Call(Pointer, on, Api.CreditSpecialDevice_lockout);
+		}
 	}
 }
