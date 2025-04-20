@@ -1,4 +1,4 @@
-
+	
 using System;
 using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
@@ -18,7 +18,7 @@ namespace AMDaemon
 
 		public bool Lockout(bool on)
 		{
-			Logger.Trace($"on={on}");
+			//Logger.Trace($"on={on}");
 			return true;
 			// return Api.Call(Pointer, on, Api.CreditSpecialDevice_lockout);
 		}

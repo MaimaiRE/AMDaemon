@@ -18,7 +18,7 @@ namespace AMDaemon
 
 		private static Action<EMoneySound> soundHook;
 
-		//private static int soundHookCheckLock;
+		private static int soundHookCheckLock;
 
 		//private static LazyCollection<EMoneyBrand> BrandsCache;
 
@@ -62,23 +62,23 @@ namespace AMDaemon
 
 		//public static LazyCollection<EMoneyReport> Reports { get; private set; }
 
-		//static EMoney()
-		//{
-		//	BrandIdCount = Api.EMoneyBrandIdCount_get();
-		//	MaxDealResultCount = Api.MaxEMoneyDealResultCount_get();
-		//	MaxReportCount = Api.MaxEMoneyReportCount_get();
-		//	MaxTerminalIdLength = Api.MaxEMoneyTerminalIdLength_get();
-		//	MaxTerminalSerialLength = Api.MaxEMoneyTerminalSerialLength_get();
-		//	soundHook = null;
-		//	soundHookCheckLock = 0;
-		//	BrandsCache = null;
-		//	AvailableBrands = new LazyCollection<EMoneyBrand>(() => Api.EMoney_getAvailableBrandCount(false), (int index) => new EMoneyBrand(Api.Call(index, false, Api.EMoney_getAvailableBrand)), true);
-		//	AvailableBrandsForBalance = new LazyCollection<EMoneyBrand>(() => Api.EMoney_getAvailableBrandCount(true), (int index) => new EMoneyBrand(Api.Call(index, true, Api.EMoney_getAvailableBrand)), true);
-		//	Operation = new EMoneyOperation(Api.EMoney_getOperation());
-		//	DealResults = new LazyCollection<EMoneyResult>(Api.EMoney_getDealResultCount, (int index) => new EMoneyResult(Api.Call(index, Api.EMoney_getDealResult)), true);
-		//	Reports = new LazyCollection<EMoneyReport>(Api.EMoney_getReportCount, (int index) => new EMoneyReport(Api.Call(index, Api.EMoney_getReport)), true);
-		//	BrandsCache = new LazyCollection<EMoneyBrand>(() => BrandIdCount, (int index) => new EMoneyBrand(Api.Call((EMoneyBrandId)index, Api.EMoney_getBrand)), true);
-		//}
+		static EMoney()
+		{
+			//BrandIdCount = Api.EMoneyBrandIdCount_get();
+			//MaxDealResultCount = Api.MaxEMoneyDealResultCount_get();
+			//MaxReportCount = Api.MaxEMoneyReportCount_get();
+			//MaxTerminalIdLength = Api.MaxEMoneyTerminalIdLength_get();
+			//MaxTerminalSerialLength = Api.MaxEMoneyTerminalSerialLength_get();
+			soundHook = null;
+			soundHookCheckLock = 0;
+			//BrandsCache = null;
+			//AvailableBrands = new LazyCollection<EMoneyBrand>(() => Api.EMoney_getAvailableBrandCount(false), (int index) => new EMoneyBrand(Api.Call(index, false, Api.EMoney_getAvailableBrand)), true);
+			//AvailableBrandsForBalance = new LazyCollection<EMoneyBrand>(() => Api.EMoney_getAvailableBrandCount(true), (int index) => new EMoneyBrand(Api.Call(index, true, Api.EMoney_getAvailableBrand)), true);
+			Operation = new EMoneyOperation(); // (Api.EMoney_getOperation());
+			//DealResults = new LazyCollection<EMoneyResult>(Api.EMoney_getDealResultCount, (int index) => new EMoneyResult(Api.Call(index, Api.EMoney_getDealResult)), true);
+			//Reports = new LazyCollection<EMoneyReport>(Api.EMoney_getReportCount, (int index) => new EMoneyReport(Api.Call(index, Api.EMoney_getReport)), true);
+			//BrandsCache = new LazyCollection<EMoneyBrand>(() => BrandIdCount, (int index) => new EMoneyBrand(Api.Call((EMoneyBrandId)index, Api.EMoney_getBrand)), true);
+		}
 
 		//private static void CheckSoundHook()
 		//{
