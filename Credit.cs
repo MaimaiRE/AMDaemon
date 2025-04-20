@@ -1,7 +1,8 @@
+
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
-
+using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public static class Credit
@@ -93,10 +94,12 @@ namespace AMDaemon
 			Players = new LazyCollection<CreditUnit>(() => 1, (int index) => new CreditUnit(IntPtr.Zero));
         }
 
-		//public static bool SetCoinInIgnored(bool ignored)
-		//{
-		//	return Api.Call(ignored, Api.Credit_setCoinInIgnored);
-		//}
+		public static bool SetCoinInIgnored(bool ignored)
+		{
+			Logger.Trace($"ignored={ignored}");
+			return true;
+			// return Api.Call(ignored, Api.Credit_setCoinInIgnored);
+		}
 
 		public static bool ClearBackup()
 		{

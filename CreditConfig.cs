@@ -26,6 +26,8 @@ namespace AMDaemon
 
 		public uint CoinAmount => 100; // Api.CreditConfig_coinAmount_get(Pointer);
 
+		public uint CoinToCredit => 1; // or 2 depending on how many coins make 1 credit
+
 		//internal CreditConfig(IntPtr pointer)
 		//{
 		//	Pointer = pointer;

@@ -1,6 +1,6 @@
 using System;
 using System.Threading;
-using MaimaiRE;
+using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public sealed class EMoneyOperation

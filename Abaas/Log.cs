@@ -1,10 +1,12 @@
+
 using System.Runtime.InteropServices;
+using Logger = AMDaemon.Debug.Logger;
 
 namespace AMDaemon.Abaas
 {
 	public static class Log
 	{
-		//public static bool IsAvailable => Api.abaas_Log_isAvailable();
+		public static bool IsAvailable => true;
 
 		//public static string RootPath => Marshal.PtrToStringUni(Api.abaas_Log_getRootPath());
 
@@ -14,9 +16,10 @@ namespace AMDaemon.Abaas
 
 		//public static int UploadingFileCount => Api.abaas_Log_getUploadingFileCount();
 
-		//public static bool PutErrorMessage(string message)
-		//{
-		//	return Api.Call(message, Api.abaas_Log_putErrorMessage);
-		//}
+		public static bool PutErrorMessage(string message)
+		{
+			Logger.Error(message);
+			return true;
+		}
 	}
 }

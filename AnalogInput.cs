@@ -7,39 +7,44 @@ namespace AMDaemon
 	{
 		public bool IsValid => Unit != null;
 
-		public InputUnit Unit
+		public InputUnit Unit { get; private set; }
+
+		public InputId Id { get; private set; }
+
+		public double MinValue { get; private set; }
+
+		public double MaxValue { get; private set; }
+
+		public double Value
 		{
-			
-			get;
-			private set; }
+			get
+			{
+#if UNITY_EDITOR
+				// return neutral midpoint for testing
+				return (MinValue + MaxValue) / 2.0;
+#else
+				return Api.Call(ref this, delegate(ref AnalogInput self)
+				{
+					return Api.AnalogInput_getValue(self.Unit.Pointer, self.Id.Value, self.MinValue, self.MaxValue);
+				});
+#endif
+			}
+		}
 
-		public InputId Id
+		public double Delta
 		{
-			
-			get;
-			private set; }
-
-		public double MinValue
-		{
-			
-			get;
-			private set; }
-
-		public double MaxValue
-		{
-			
-			get;
-			private set; }
-
-		//public double Value => Api.Call(ref this, delegate(ref AnalogInput self)
-		//{
-		//	return Api.AnalogInput_getValue(self.Unit.Pointer, self.Id.Value, self.MinValue, self.MaxValue);
-		//});
-
-		//public double Delta => Api.Call(ref this, delegate(ref AnalogInput self)
-		//{
-		//	return Api.AnalogInput_getDelta(self.Unit.Pointer, self.Id.Value, self.MinValue, self.MaxValue);
-		//});
+			get
+			{
+#if UNITY_EDITOR
+				return 0.0;
+#else
+				return Api.Call(ref this, delegate(ref AnalogInput self)
+				{
+					return Api.AnalogInput_getDelta(self.Unit.Pointer, self.Id.Value, self.MinValue, self.MaxValue);
+				});
+#endif
+			}
+		}
 
 		public AnalogInput(InputUnit unit, InputId id, double minValue, double maxValue)
 		{

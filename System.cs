@@ -12,8 +12,7 @@ namespace AMDaemon
 		public static SerialId KeychipId { get; private set; }
 
 		//public static uint ModelType => Api.System_getModelType();
-
-		public static string GameId => "MaimaiRE"; // Marshal.PtrToStringUni(Api.System_getGameId());
+		public static string GameId => "CardMakerRE"; // Marshal.PtrToStringUni(Api.System_getGameId());
 
 		public static bool IsDevelop => true; // Api.System_isDevelop();
 
@@ -23,8 +22,8 @@ namespace AMDaemon
 
 		static System()
 		{
-			BoardId = new SerialId("MaimaiRE"); // new SerialId(Api.System_getBoardId());
-			KeychipId = new SerialId(AquaDX.Session.Instance.KeychipID);
+			BoardId = new SerialId("CardMakerRE"); // new SerialId(Api.System_getBoardId());
+			KeychipId = new SerialId(Client.Session.Instance.KeychipID);
 			Resolutions = new LazyCollection<Resolution>(() => 2, (int index) => new Resolution(IntPtr.Zero));
 		}
 	}

@@ -1,4 +1,5 @@
 using System;
+using Logger = AMDaemon.Debug.Logger;
 
 namespace AMDaemon
 {
@@ -40,6 +41,20 @@ namespace AMDaemon
 		//{
 		//	return Api.Call(Pointer, id.Value, Api.InputUnit_getDirectValue);
 		//}
+
+		public long GetDirectValue(InputId id)
+		{
+			// Log what would've been called and return a dummy value
+			Logger.Trace($"[Mock] GetDirectValue({id.Value})");
+			return 0; // or any fake long value
+		}
+
+		public AnalogInput GetAnalog(InputId id, double minValue, double maxValue)
+		{
+			return new AnalogInput(this, id, minValue, maxValue);
+		}
+
+
 
 		//public int GetSwitchFlipDelta(InputId id, bool toOn)
 		//{

@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
-using MaimaiRE;
 
+using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public sealed class CreditUnit

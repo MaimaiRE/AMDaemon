@@ -1,5 +1,5 @@
 using System;
-using MaimaiRE;
+using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public static class Error
