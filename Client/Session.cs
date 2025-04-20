@@ -135,7 +135,7 @@ namespace AMDaemon.Client
                                            a => Uri.UnescapeDataString(a[1]).Trim());
 
             return kv.TryGetValue("uri", out var uri)
-                    ? uri.Replace("http://", "")
+                    ? uri
                     : null;
         }
     }

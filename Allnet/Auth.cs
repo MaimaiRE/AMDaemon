@@ -41,8 +41,8 @@ namespace AMDaemon.Allnet
 
 		static Auth()
 		{
-			LocationNicknamePartCount = 0;
-			RegionNamePartCount = 0;
+			LocationNicknamePartCount = 1;
+			RegionNamePartCount = 1;
 			LocationNicknames = new LazyCollection<string>(() => LocationNicknamePartCount, (int index) => "", false);
 			RegionNames = new LazyCollection<string>(() => RegionNamePartCount, (int index) => "", false);
 		}
