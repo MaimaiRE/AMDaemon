@@ -19,15 +19,8 @@ namespace AMDaemon
 		{
 			get
 			{
-#if UNITY_EDITOR
 				// return neutral midpoint for testing
 				return (MinValue + MaxValue) / 2.0;
-#else
-				return Api.Call(ref this, delegate(ref AnalogInput self)
-				{
-					return Api.AnalogInput_getValue(self.Unit.Pointer, self.Id.Value, self.MinValue, self.MaxValue);
-				});
-#endif
 			}
 		}
 
@@ -35,14 +28,7 @@ namespace AMDaemon
 		{
 			get
 			{
-#if UNITY_EDITOR
 				return 0.0;
-#else
-				return Api.Call(ref this, delegate(ref AnalogInput self)
-				{
-					return Api.AnalogInput_getDelta(self.Unit.Pointer, self.Id.Value, self.MinValue, self.MaxValue);
-				});
-#endif
 			}
 		}
 
