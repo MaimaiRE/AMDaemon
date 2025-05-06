@@ -6,9 +6,9 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-
+using UnityEngine;
 using Ionic.Zlib;
-using Logger = AMDaemon.Debug.Logger;
+using Debug = UnityEngine.Debug;
 
 namespace AMDaemon.Client
 {
@@ -35,15 +35,15 @@ namespace AMDaemon.Client
         {
             if (!IsValid)
             {
-                Logger.Error("Config is not valid. Check and reconfigure.");
-                Logger.Error($"Reason: {Config.Instance.InvalidReason()}");
+                UnityEngine.Debug.LogError("Config is not valid. Check and reconfigure.");
+                UnityEngine.Debug.LogError($"Reason: {Config.Instance.InvalidReason()}");
                 onComplete?.Invoke(null);
                 yield break;
             }
 
             string host = Config.Instance.Host;
             string urlPath = "/sys/servlet/PowerOn";
-            Logger.Log($"PowerOn(raw) → http://{host}{urlPath}");
+            UnityEngine.Debug.Log($"PowerOn(raw) → http://{host}{urlPath}");
 
             Dictionary<string, string> fields = Config.Instance.AimeFields;
             fields["serial"] = KeychipID;
@@ -56,11 +56,11 @@ namespace AMDaemon.Client
             if (t.Result != null)
             {
                 _serverEndpoint = t.Result;
-                Logger.Log($"✅ ServerEndpoint = {_serverEndpoint}");
+                UnityEngine.Debug.Log($"✅ ServerEndpoint = {_serverEndpoint}");
             }
             else
             {
-                Logger.Error("Failed to obtain server URI.");
+                UnityEngine.Debug.LogError("Failed to obtain server URI.");
             }
 
             onComplete?.Invoke(_serverEndpoint.Length > 0 ? _serverEndpoint : null);
@@ -89,7 +89,7 @@ namespace AMDaemon.Client
             }
             catch (Exception ex)
             {
-                Logger.Error($"TCP connect failed: {ex.Message}");
+                UnityEngine.Debug.LogError($"TCP connect failed: {ex.Message}");
                 return null;
             }
             using NetworkStream ns = client.GetStream();
@@ -101,7 +101,7 @@ namespace AMDaemon.Client
             }
             catch (Exception ex)
             {
-                Logger.Error($"TCP write failed: {ex.Message}");
+                UnityEngine.Debug.LogError($"TCP write failed: {ex.Message}");
                 return null;
             }
             using MemoryStream ms = new();
@@ -114,7 +114,7 @@ namespace AMDaemon.Client
             }
             catch (Exception ex)
             {
-                Logger.Error($"TCP read failed: {ex.Message}");
+                UnityEngine.Debug.LogError($"TCP read failed: {ex.Message}");
                 return null;
             }
 
@@ -122,11 +122,11 @@ namespace AMDaemon.Client
             int bodyIdx = response.IndexOf("\r\n\r\n", StringComparison.Ordinal);
             if (bodyIdx < 0)
             {
-                Logger.Error("No HTTP separator found.");
+                UnityEngine.Debug.LogError("No HTTP separator found.");
                 return null;
             }
             string respBody = response.Substring(bodyIdx + 4).Trim();
-            Logger.Log($"RAW reply body: \"{respBody}\"");
+            UnityEngine.Debug.Log($"RAW reply body: \"{respBody}\"");
 
             var kv = respBody.Split('&', StringSplitOptions.RemoveEmptyEntries)
                              .Select(p => p.Split('='))

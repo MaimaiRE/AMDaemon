@@ -1,6 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
-using Logger = AMDaemon.Debug.Logger;
+
 namespace AMDaemon
 {
 	public sealed class NetworkTestInfo
@@ -48,20 +48,20 @@ namespace AMDaemon
 		public bool IsBusy(NetworkTestItem item)
 		{
 			// return Api.Call(Pointer, item, Api.NetworkTestInfo_isBusy);
-			Logger.Trace($"{item}");
+			AMDebugger.Trace($"{item}");
 			return false;
 		}
 
 		public bool IsDone(NetworkTestItem item)
 		{
-            Logger.Trace($"{item}");
+            AMDebugger.Trace($"{item}");
             return false;
         }
 
 		public TestResult GetResult(NetworkTestItem item)
 		{
 			//return Api.Call(Pointer, item, Api.NetworkTestInfo_getResult);
-			Logger.Trace($"{item}");
+			AMDebugger.Trace($"{item}");
             return TestResult.Good;
         }
 

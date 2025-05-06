@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public static class Backup
@@ -131,7 +130,7 @@ namespace AMDaemon
 			//	}
 			//}
 			//return true;
-			Logger.Trace($"{records} {gameId}");
+			AMDebugger.Trace($"{records} {gameId}");
             return true;
         }
 
@@ -143,7 +142,7 @@ namespace AMDaemon
 		public static BackupRecordStatus GetRecordStatus(int recordIndex)
 		{
 			// return Api.Call(recordIndex, Api.Backup_getRecordStatus);
-			Logger.Trace($"{recordIndex}");
+			AMDebugger.Trace($"{recordIndex}");
             return BackupRecordStatus.Valid;
         }
 
@@ -170,7 +169,7 @@ namespace AMDaemon
 			//}
 			//LastSaveState = RequestState.ReplaceOrCreate(LastSaveState, intPtr);
 			//Records[recordIndex].IsSaveRequested = true;
-			Logger.Trace($"{recordIndex}");
+			AMDebugger.Trace($"{recordIndex}");
 			return true;
 		}
 

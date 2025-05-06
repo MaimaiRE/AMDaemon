@@ -1,4 +1,3 @@
-using AMDaemon.Debug;
 using System;
 using System.Diagnostics;
 
@@ -56,7 +55,7 @@ namespace AMDaemon
 		public bool SetLedStatus(AimeLedStatus status)
 		{
             // return Api.Call(Pointer, status, Api.AimeUnit_setLedStatus);
-            Logger.Trace($"SetLedStatus: status={status}");
+            AMDebugger.Trace($"SetLedStatus: status={status}");
             return true;
 
         }
@@ -64,7 +63,7 @@ namespace AMDaemon
 		public bool SetLed(bool onR, bool onG, bool onB)
 		{
             //return Api.Call(() => Api.AimeUnit_setLed(Pointer, onR, onG, onB));
-            Logger.Trace($"SetLed: onR={onR}, onG={onG}, onB={onB}");
+            AMDebugger.Trace($"SetLed: onR={onR}, onG={onG}, onB={onB}");
             return true;
 		}
 	}

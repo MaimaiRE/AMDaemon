@@ -1,5 +1,4 @@
 using System;
-using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon.Allnet
 {
 	public sealed class AccountingUnit
@@ -26,14 +25,14 @@ namespace AMDaemon.Allnet
 		public AccountingHandle BeginPlay(int kindCode, int statusCode)
 		{
 			//return new AccountingHandle(Api.Call(() => Api.allnet_AccountingUnit_beginPlay(Pointer, kindCode, statusCode)));
-			Logger.Trace($"{kindCode} {statusCode}");
+			AMDebugger.Trace($"{kindCode} {statusCode}");
 			return new AccountingHandle();
 		}
 
 		public bool EndPlay(AccountingHandle handle, int kindCode, int statusCode, int itemCount)
 		{
 			// return Api.Call(() => Api.allnet_AccountingUnit_endPlay(Pointer, handle.Value, kindCode, statusCode, itemCount));
-			Logger.Trace($"{handle} {kindCode} {itemCount}");
+			AMDebugger.Trace($"{handle} {kindCode} {itemCount}");
 			return true;
 		}
 
@@ -44,20 +43,20 @@ namespace AMDaemon.Allnet
 
 		public bool AccountItem(int kindCode, int statusCode, int itemCount)
 		{
-			Logger.Trace($"{kindCode} {statusCode} {itemCount}");
+			AMDebugger.Trace($"{kindCode} {statusCode} {itemCount}");
 			return true;
 		}
 
 		public bool PutQuantity(int kindCode, int quantity)
 		{
 			// return Api.Call(() => Api.allnet_AccountingUnit_putQuantity(Pointer, kindCode, quantity));
-			Logger.Trace($"{kindCode} {quantity}");
+			AMDebugger.Trace($"{kindCode} {quantity}");
 			return true;
 		}
 
 		public bool PutGeneralId(int kindCode, string generalId)
 		{
-            Logger.Trace($"{kindCode} {generalId}");
+            AMDebugger.Trace($"{kindCode} {generalId}");
             return true;
         }
 	}

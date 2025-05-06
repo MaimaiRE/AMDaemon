@@ -1,5 +1,4 @@
 using System;
-using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public sealed class UsbIOUniqueOutput
@@ -25,7 +24,7 @@ namespace AMDaemon
 
 		public bool Set(byte command, byte[] data, int dataSize)
 		{
-			Logger.Trace($"{command} {data} {dataSize}");
+			AMDebugger.Trace($"{command} {data} {dataSize}");
 			return true;
 		}
 

@@ -1,5 +1,4 @@
 using System;
-using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public static class Error
@@ -42,7 +41,7 @@ namespace AMDaemon
 		public static bool Set(int number, int subNumber)
 		{
 			//return Api.Call(number, subNumber, Api.Error_set);
-			Logger.Trace($"{number} {subNumber}");
+			AMDebugger.Trace($"{number} {subNumber}");
             return true;
 		}
 

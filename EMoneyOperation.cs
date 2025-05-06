@@ -1,6 +1,5 @@
 using System;
 using System.Threading;
-using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public sealed class EMoneyOperation
@@ -65,42 +64,42 @@ namespace AMDaemon
 		public bool Cancel()
 		{
 			// return Api.Call(Pointer, Api.EMoneyOperation_cancel);
-			Logger.Trace();
+			AMDebugger.Trace();
 			return true;
 		}
 
 		public bool CheckDisplay()
 		{
             // return Api.Call(Pointer, Api.EMoneyOperation_checkDisplay);
-            Logger.Trace();
+            AMDebugger.Trace();
             return true;
         }
 
 		public bool AuthTerminal()
 		{
             //return Api.Call(Pointer, Api.EMoneyOperation_authTerminal);
-            Logger.Trace();
+            AMDebugger.Trace();
             return true;
         }
 
 		public bool RemoveTerminal()
 		{
             //return Api.Call(Pointer, Api.EMoneyOperation_removeTerminal);
-            Logger.Trace();
+            AMDebugger.Trace();
             return true;
         }
 
 		public bool RequestBalance(EMoneyBrandId brandId)
 		{
 			//return Api.Call(Pointer, brandId, Api.EMoneyOperation_requestBalance);
-			Logger.Trace($"{brandId}");
+			AMDebugger.Trace($"{brandId}");
             return true;
         }
 
 		public bool PayToCoin(int playerIndex, EMoneyBrandId brandId, uint coin)
 		{
             // return Api.Call(() => Api.EMoneyOperation_payToCoin(Pointer, playerIndex, brandId, coin));
-            Logger.Trace($"{playerIndex} {brandId} {coin}");
+            AMDebugger.Trace($"{playerIndex} {brandId} {coin}");
             return true;
         }
 
