@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.InteropServices;
-using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public static class Core
@@ -47,14 +46,14 @@ namespace AMDaemon
 
 		public static void Kill()
 		{
-            Logger.Trace();
+            AMDebugger.Trace();
             // Kill(NextProcess.Auto);
         }
 
 		public static void Kill(NextProcess nextProcess)
 		{
             // Api.CallAction(nextProcess, Api.Core_kill);
-            Logger.Trace($"{nextProcess}");
+            AMDebugger.Trace($"{nextProcess}");
 			Kill();
         }
 
@@ -66,7 +65,7 @@ namespace AMDaemon
 		public static void Reboot()
 		{
 			// Api.CallAction(Api.Core_reboot);
-			Logger.Trace();
+			AMDebugger.Trace();
 		}
 
 		//public static bool PreloadDataSection()

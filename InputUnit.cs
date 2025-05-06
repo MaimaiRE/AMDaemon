@@ -1,5 +1,4 @@
 using System;
-using Logger = AMDaemon.Debug.Logger;
 
 namespace AMDaemon
 {
@@ -45,7 +44,7 @@ namespace AMDaemon
 		public long GetDirectValue(InputId id)
 		{
 			// Log what would've been called and return a dummy value
-			Logger.Trace($"[Mock] GetDirectValue({id.Value})");
+			AMDebugger.Trace($"[Mock] GetDirectValue({id.Value})");
 			return 0; // or any fake long value
 		}
 

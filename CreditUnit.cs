@@ -1,7 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
 
-using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public sealed class CreditUnit
@@ -57,7 +56,7 @@ namespace AMDaemon
 		public bool PayGameCost(int gameCostIndex, int count)
 		{
 			// return Api.Call(() => Api.CreditUnit_payGameCost(Pointer, gameCostIndex, count));
-			Logger.Trace($"{gameCostIndex}, {count}");
+			AMDebugger.Trace($"{gameCostIndex}, {count}");
 			return true;
 		}
 	}

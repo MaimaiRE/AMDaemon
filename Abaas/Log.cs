@@ -1,7 +1,6 @@
 
 using System.Runtime.InteropServices;
-using Logger = AMDaemon.Debug.Logger;
-
+using UnityEngine;
 namespace AMDaemon.Abaas
 {
 	public static class Log
@@ -18,7 +17,7 @@ namespace AMDaemon.Abaas
 
 		public static bool PutErrorMessage(string message)
 		{
-			Logger.Error(message);
+			UnityEngine.Debug.LogError(message);
 			return true;
 		}
 	}

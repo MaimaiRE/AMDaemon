@@ -2,7 +2,6 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Logger = AMDaemon.Debug.Logger;
 namespace AMDaemon
 {
 	public static class Credit
@@ -96,7 +95,7 @@ namespace AMDaemon
 
 		public static bool SetCoinInIgnored(bool ignored)
 		{
-			Logger.Trace($"ignored={ignored}");
+			AMDebugger.Trace($"ignored={ignored}");
 			return true;
 			// return Api.Call(ignored, Api.Credit_setCoinInIgnored);
 		}

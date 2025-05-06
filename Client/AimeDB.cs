@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 using AMDaemon.Client;
-using Config = AMDaemon.Client.Config;
-using Logger = AMDaemon.Debug.Logger;
 
 namespace AMDaemon
 {
@@ -85,7 +83,7 @@ namespace AMDaemon
 
             private static byte[] Serialize(ushort type, byte[] keychip, byte[] payloadData)
             {
-                Logger.Assert(keychip.Length == 12);
+                AMDebugger.Assert(keychip.Length == 12);
 
                 byte[] alignedData = Align16(payloadData ?? new byte[0]);
                 ushort length = (ushort)(alignedData.Length + 0x20);
@@ -108,12 +106,12 @@ namespace AMDaemon
 
             private static (ushort type, byte[] data) Deserialize(byte[] decryptedPacket)
             {
-                Logger.Assert(decryptedPacket.Length > 0x20);
+                AMDebugger.Assert(decryptedPacket.Length > 0x20);
                 using (MemoryStream ms = new MemoryStream(decryptedPacket))
                 using (BinaryReader reader = new BinaryReader(ms))
                 {
                     ushort magic = reader.ReadUInt16();
-                    Logger.Assert(magic == 0xa13e, "Invalid magic bytes in decrypted packet.");
+                    AMDebugger.Assert(magic == 0xa13e, "Invalid magic bytes in decrypted packet.");
 
                     reader.ReadUInt16(); // version
                     ushort responseType = reader.ReadUInt16();
@@ -124,7 +122,7 @@ namespace AMDaemon
                     reader.ReadBytes(12); // keychip
 
                     int payloadSize = length - 0x20;
-                    Logger.Assert(payloadSize >= 0);
+                    AMDebugger.Assert(payloadSize >= 0);
                     byte[] payloadData = reader.ReadBytes(payloadSize);
 
                     return (responseType, payloadData);
@@ -178,7 +176,7 @@ namespace AMDaemon
             {
                 byte[] keychipBytes = new byte[12];
                 byte[] luidBytes;
-                Logger.Log($"LookUp AimeDB: keychipStr={keychipStr}, luidHex={luidHex}");
+                Debug.Log($"LookUp AimeDB: keychipStr={keychipStr}, luidHex={luidHex}");
                 try
                 {
                     if (string.IsNullOrEmpty(keychipStr) || keychipStr.Length < 11)
@@ -193,12 +191,12 @@ namespace AMDaemon
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error($"Error preparing parameters for AimeDB lookup: {ex.Message}");
+                    Debug.LogError($"Error preparing parameters for AimeDB lookup: {ex.Message}");
                     onComplete?.Invoke(null);
                     yield break;
                 }
 
-                Logger.Log($"Starting AimeDB Lookup Coroutine for LUID: {luidHex}");
+                Debug.Log($"Starting AimeDB Lookup Coroutine for LUID: {luidHex}");
 
 
                 Task<(ushort responseType, byte[] responsePayload, Exception error)> request
@@ -213,12 +211,12 @@ namespace AMDaemon
                 // Process the result from the generalized sender
                 if (request.IsFaulted) // Should ideally not happen if exceptions are caught inside
                 {
-                    Logger.Error($"AimeDB command task faulted: {request.Exception}");
+                    Debug.LogError($"AimeDB command task faulted: {request.Exception}");
                     onComplete?.Invoke(null);
                 }
                 else if (request.Result.error != null)
                 {
-                    Logger.Error($"AimeDB command failed: {request.Result.error}");
+                    Debug.LogError($"AimeDB command failed: {request.Result.error}");
                     onComplete?.Invoke(null);
                 }
                 else
@@ -229,12 +227,12 @@ namespace AMDaemon
 
                     if (responseType != 0x06)
                     {
-                        Logger.Error($"AimeDB lookup received unexpected response type: {responseType}");
+                        Debug.LogError($"AimeDB lookup received unexpected response type: {responseType}");
                         onComplete?.Invoke(null);
                     }
                     else if (responsePayload == null || responsePayload.Length < 4)
                     {
-                        Logger.Error(
+                        Debug.LogError(
                             $"AimeDB lookup received invalid payload length: {(responsePayload == null ? "null" : responsePayload.Length.ToString())}");
                         onComplete?.Invoke(null);
                     }
@@ -245,13 +243,13 @@ namespace AMDaemon
 
                         if (aimeIdResult == 0xFFFFFFFF)
                         {
-                            Logger.Warn(
+                            Debug.LogWarning(
                                 "AimeDB lookup returned Guest ID (0xFFFFFFFF). Card might not be registered.");
                             onComplete?.Invoke(null); // Treat Guest ID as failure for this callback
                         }
                         else
                         {
-                            Logger.Log($"AimeDB lookup successful. AimeID: {aimeIdResult}");
+                            Debug.Log($"AimeDB lookup successful. AimeID: {aimeIdResult}");
                             onComplete?.Invoke(aimeIdResult);
                         }
                     }
