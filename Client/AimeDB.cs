@@ -138,7 +138,7 @@ namespace AMDaemon
                 {
                     try
                     {
-                        await client.ConnectAsync(Config.Instance.Host, Config.Instance.AimeDbPort);
+                        await client.ConnectAsync(AMConfig.Instance.Host, AMConfig.Instance.AimeDbPort);
 
                         using (var stream = client.GetStream())
                         {
@@ -269,7 +269,7 @@ namespace AMDaemon
             {
                 // XXX: Help. Please tell me this is NOT how you are supposed to write this.               
                 var coro = AimeDbClient.DoLookup(
-                    Config.Instance.EncodedKeychipID, Config.Instance.AimeID20, new Action<uint?>(u => AimeID = u));
+                    AMConfig.Instance.EncodedKeychipID, AMConfig.Instance.AimeID20, new Action<uint?>(u => AimeID = u));
                 while (coro.MoveNext()) yield return null;
                 onComplete?.Invoke();
             }

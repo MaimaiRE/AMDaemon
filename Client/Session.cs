@@ -26,8 +26,8 @@ namespace AMDaemon.Client
             }
             return Convert.ToBase64String(ms.ToArray());
         }
-        public string KeychipID => Config.Instance.EncodedKeychipID;
-        public bool IsValid => Config.Instance.IsValid;
+        public string KeychipID => AMConfig.Instance.EncodedKeychipID;
+        public bool IsValid => AMConfig.Instance.IsValid;
 
         private string _serverEndpoint = string.Empty;
         public  string ServerEndpoint  => _serverEndpoint;
@@ -36,16 +36,16 @@ namespace AMDaemon.Client
             if (!IsValid)
             {
                 UnityEngine.Debug.LogError("Config is not valid. Check and reconfigure.");
-                UnityEngine.Debug.LogError($"Reason: {Config.Instance.InvalidReason()}");
+                UnityEngine.Debug.LogError($"Reason: {AMConfig.Instance.InvalidReason()}");
                 onComplete?.Invoke(null);
                 yield break;
             }
 
-            string host = Config.Instance.Host;
+            string host = AMConfig.Instance.Host;
             string urlPath = "/sys/servlet/PowerOn";
             UnityEngine.Debug.Log($"PowerOn(raw) → http://{host}{urlPath}");
 
-            Dictionary<string, string> fields = Config.Instance.AimeFields;
+            Dictionary<string, string> fields = AMConfig.Instance.AimeFields;
             fields["serial"] = KeychipID;
 
             string body = BuildCompressedBase64(fields);

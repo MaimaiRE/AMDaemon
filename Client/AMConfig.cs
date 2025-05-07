@@ -6,7 +6,7 @@ namespace AMDaemon
 {
     namespace Client
     {
-        public class Config : Internal.Singleton<Config>
+        public class AMConfig : Internal.Singleton<AMConfig>
         {
             /// <summary>
             /// Your favorite custom server host e.g. "amime.missless.net", "aquadx.hydev.org"
