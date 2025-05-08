@@ -25,13 +25,16 @@ namespace AMDaemon
         private static Action? CrashHandler;
         public static void Install(Action crashHandler)
         {
-            CrashHandler = crashHandler;
-            Application.logMessageReceived += Application_logMessageReceived;
+            CrashHandler = crashHandler;            
+            Application.logMessageReceivedThreaded += Application_logMessageReceived;
         }
 
         private static void Application_logMessageReceived(string condition, string stackTrace, LogType type)
         {
-            AddHistory(condition, type);
+            lock (LogHistory)
+            {
+                AddHistory(condition, type);
+            }
         }
 
         private static void AddHistory(string message, LogType type)
