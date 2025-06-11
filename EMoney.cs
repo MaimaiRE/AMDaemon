@@ -18,7 +18,6 @@ namespace AMDaemon
 
 		private static Action<EMoneySound> soundHook;
 
-		private static int soundHookCheckLock;
 
 		//private static LazyCollection<EMoneyBrand> BrandsCache;
 
@@ -69,8 +68,7 @@ namespace AMDaemon
 			//MaxReportCount = Api.MaxEMoneyReportCount_get();
 			//MaxTerminalIdLength = Api.MaxEMoneyTerminalIdLength_get();
 			//MaxTerminalSerialLength = Api.MaxEMoneyTerminalSerialLength_get();
-			soundHook = null;
-			soundHookCheckLock = 0;
+                        soundHook = null;
 			//BrandsCache = null;
 			//AvailableBrands = new LazyCollection<EMoneyBrand>(() => Api.EMoney_getAvailableBrandCount(false), (int index) => new EMoneyBrand(Api.Call(index, false, Api.EMoney_getAvailableBrand)), true);
 			//AvailableBrandsForBalance = new LazyCollection<EMoneyBrand>(() => Api.EMoney_getAvailableBrandCount(true), (int index) => new EMoneyBrand(Api.Call(index, true, Api.EMoney_getAvailableBrand)), true);

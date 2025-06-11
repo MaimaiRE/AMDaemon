@@ -7,13 +7,6 @@ namespace AMDaemon
 	{
 		public static readonly int CampaignCountLimit;
 
-		private static AimeId RequestCampaignProgressAimeIdCache;
-
-		private static RequestState RequestCampaignProgressStateCache;
-
-		private static AimeId CampaignProgressesAimeIdCache;
-
-		private static LazyCollection<AimeCampaignProgress> CampaignProgressesCache;
 
 		//public static bool IsAvailable => Api.Aime_isAvailable();
 
@@ -34,10 +27,6 @@ namespace AMDaemon
 		static Aime()
 		{
 			// CampaignCountLimit = Api.AimeCampaignCountLimit_get();
-			RequestCampaignProgressAimeIdCache = AimeId.Invalid;
-			RequestCampaignProgressStateCache = null;
-			CampaignProgressesAimeIdCache = AimeId.Invalid;
-			CampaignProgressesCache = null;
 			Units = new LazyCollection<AimeUnit>(()=>1, (int index) => new AimeUnit(IntPtr.Zero));
             CampaignInfos = new LazyCollection<AimeCampaignInfo>(()=>0, (int index) => new AimeCampaignInfo(IntPtr.Zero));
         }
