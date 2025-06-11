@@ -5,6 +5,8 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
+
+#nullable enable
 namespace AMDaemon
 {
     public class LogEntry

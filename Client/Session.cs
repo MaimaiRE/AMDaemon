@@ -10,6 +10,8 @@ using UnityEngine;
 using Ionic.Zlib;
 using Debug = UnityEngine.Debug;
 
+#nullable enable
+
 namespace AMDaemon.Client
 {
     public class Session : Internal.Singleton<Session>
